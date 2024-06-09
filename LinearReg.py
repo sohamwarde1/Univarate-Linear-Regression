@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x_train = np.array([1.0, 2.0, 3.0, 5.0])
-y_train = np.array([300.0, 500.0,650.0, 1000])
+x_train = np.array([1.0, 2.0, 3.0, 4.0])
+y_train = np.array([300.0, 500.0,800.0, 850.0])
 
 
 def costf(x_train,y_train,w,b):
@@ -47,9 +47,9 @@ def gradientdescent(wi, bi, x_train, y_train, alpha, iters):
 
 		wnew = wlist[-1] - (alpha*wn1)
 		bnew = blist[-1] - (alpha*bn1)
-		print(wnew)
 
 		cost = costf(x_train,y_train,wnew,bnew)
+		print(cost)
 
 
 		wlist.append(wnew)
@@ -63,6 +63,7 @@ def createline(x_train,y_train, alpha,iters):
 	m = x_train.shape[0]
 	
 	w,b = gradientdescent(wi,bi,x_train,y_train,alpha,iters)
+	print(w)
 
 	f = []
 
@@ -77,7 +78,7 @@ def createline(x_train,y_train, alpha,iters):
 
 plt.scatter(x_train,y_train,c = 'r')
 alpha = 0.1
-iters = 10
+iters = 1000
 f = createline(x_train, y_train, alpha,iters)
 
 plt.plot(x_train, f, c = 'b')
