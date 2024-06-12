@@ -41,6 +41,7 @@ def gradientdescent(wi, bi, x_train, y_train, alpha, iters):
 	minc = costf(x_train,y_train,wi,bi)
 	wlist = [wi]
 	blist = [bi]
+	j = []
 
 	for i in range(iters):
 		wn1,bn1 = compute_gradient(x_train, y_train, wlist[-1], blist[-1])
@@ -49,20 +50,22 @@ def gradientdescent(wi, bi, x_train, y_train, alpha, iters):
 		bnew = blist[-1] - (alpha*bn1)
 
 		cost = costf(x_train,y_train,wnew,bnew)
-		print(cost)
+		j.append(cost)
 
 
 		wlist.append(wnew)
 		blist.append(bnew)
-	return wlist[-1],blist[-1]
+	return wlist[-1],blist[-1],j
+
+
 		
 def createline(x_train,y_train, alpha,iters):
 	wi = 0
 	bi = 0
-
+	j = []
 	m = x_train.shape[0]
 	
-	w,b = gradientdescent(wi,bi,x_train,y_train,alpha,iters)
+	w,b,j = gradientdescent(wi,bi,x_train,y_train,alpha,iters)
 	print(w)
 
 	f = []
@@ -70,7 +73,7 @@ def createline(x_train,y_train, alpha,iters):
 	for i in range(m):
 		f.append((w*x_train[i])+b)
 
-	return f
+	return f,j
 
 
 
@@ -78,9 +81,14 @@ def createline(x_train,y_train, alpha,iters):
 
 plt.scatter(x_train,y_train,c = 'r')
 alpha = 0.1
-iters = 1000
-f = createline(x_train, y_train, alpha,iters)
+iters = 400
+f,j = createline(x_train, y_train, alpha,iters)
 
 plt.plot(x_train, f, c = 'b')
 
+plt.show()
+
+iters = np.arange(iters)
+
+plt.plot(iters,j, c = 'b')
 plt.show()
